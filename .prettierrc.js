@@ -1,9 +1,9 @@
 module.exports = {
   singleQuote: true,
-  semi: false,
+  semi: true,
   stylelintIntegration: true,
   eslintIntegration: true,
   insertPragma: false,
   trailingComma: 'none',
   arrowParens: 'avoid'
-}
+};
