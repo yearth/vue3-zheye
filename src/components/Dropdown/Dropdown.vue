@@ -19,7 +19,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, Ref, ref } from 'vue';
+import { defineComponent, Ref, ref, watch } from 'vue';
+import useClickOutside from '@/hooks/useClickOutside';
 export default defineComponent({
   name: 'Dropdown',
   props: {
@@ -34,22 +35,13 @@ export default defineComponent({
     const toggle = (): void => {
       visible.value = !visible.value;
     };
-    const handler = (e: MouseEvent) => {
-      if (dropdownRef.value) {
-        if (
-          !dropdownRef.value.contains(e.target as HTMLElement) &&
-          visible.value
-        ) {
-          visible.value = false;
-        }
+    const isClickOutside = useClickOutside(dropdownRef);
+    watch(isClickOutside, () => {
+      if (visible.value && isClickOutside.value) {
+        visible.value = false;
       }
-    };
-    onMounted(() => {
-      document.addEventListener('click', handler);
     });
-    onUnmounted(() => {
-      document.removeEventListener('click', handler);
-    });
+
     return {
       dropdownRef,
       visible,
