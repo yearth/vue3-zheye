@@ -5,7 +5,7 @@
     <form action="">
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
-        <validate-input :rules="rules" />
+        <validate-input :rules="rules" v-model="email" />
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">密码</label>
@@ -69,9 +69,11 @@ export default defineComponent({
       { type: 'required', message: 'can not be empty' },
       { type: 'email', message: 'should be a valid email' }
     ];
+    const testEmail = '123@qq.com';
 
     return {
       // list: testData,
+      email: testEmail,
       user: testUser,
       rules: testRules
     };
