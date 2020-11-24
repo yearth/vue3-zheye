@@ -2,7 +2,7 @@
   <div class="container">
     <global-header :user="user" />
     <!-- <column-list :list="list" /> -->
-    <form action="">
+    <validate-form @form-submit="handleSubmit">
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
         <validate-input
@@ -21,7 +21,10 @@
           v-model="pass"
         />
       </div>
-    </form>
+      <template #submit>
+        <button type="submit" class="btn btn-primary">自定义的提交</button>
+      </template>
+    </validate-form>
   </div>
 </template>
 
@@ -30,7 +33,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { defineComponent } from 'vue';
 // import ColumnList, { ColumnProps } from '@/components/ColumnList.vue';
 import GlobalHeader, { UserProp } from '@/components/GlobalHeader.vue';
-import ValidateInput, { RuleProps } from '@/components/ValidateInput.vue';
+import { ValidateForm, ValidateInput } from '@/components/ValidateForm';
+import { RuleProps } from '@/components/ValidateForm/ValidateInput.vue';
 
 // const testData: ColumnProps[] = [
 //   {
@@ -68,6 +72,7 @@ export default defineComponent({
   components: {
     // ColumnList,
     GlobalHeader,
+    ValidateForm,
     ValidateInput
   },
   setup() {
@@ -81,6 +86,9 @@ export default defineComponent({
     ];
     const testEmail = '123@qq.com';
     const testPass = '';
+    const handleSubmit = (result: boolean) => {
+      console.log('handleSubmit', result);
+    };
 
     return {
       // list: testData,
@@ -88,7 +96,8 @@ export default defineComponent({
       pass: testPass,
       user: testUser,
       passRules,
-      rules: testRules
+      rules: testRules,
+      handleSubmit
     };
   }
 });

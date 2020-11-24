@@ -29,7 +29,6 @@ interface RuleProp {
   max?: number;
 }
 export type RuleProps = RuleProp[];
-
 export default defineComponent({
   name: 'ValidateInput',
   inheritAttrs: false,
