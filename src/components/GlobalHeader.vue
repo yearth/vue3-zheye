@@ -30,7 +30,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { Dropdown, DropdownItem } from './Dropdown';
-export interface UserProps {
+export interface UserProp {
   isLogin: boolean;
   id?: number;
   name?: string;
@@ -39,7 +39,7 @@ export default defineComponent({
   name: 'GlobalHeader',
   props: {
     user: {
-      type: Object as PropType<UserProps>,
+      type: Object as PropType<UserProp>,
       required: true
     }
   },

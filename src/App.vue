@@ -5,16 +5,7 @@
     <form action="">
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
-        <input
-          type="email"
-          class="form-control"
-          id="exampleInputEmail1"
-          v-model="emailRef.value"
-          @blur="validateEmail"
-        />
-        <div class="form-text" v-if="emailRef.error">
-          {{ emailRef.message }}
-        </div>
+        <validate-input :rules="rules" />
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">密码</label>
@@ -30,9 +21,10 @@
 
 <script lang="ts">
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { defineComponent, reactive } from 'vue';
+import { defineComponent } from 'vue';
 // import ColumnList, { ColumnProps } from '@/components/ColumnList.vue';
-import GlobalHeader, { UserProps } from '@/components/GlobalHeader.vue';
+import GlobalHeader, { UserProp } from '@/components/GlobalHeader.vue';
+import ValidateInput, { RuleProps } from '@/components/ValidateInput.vue';
 
 // const testData: ColumnProps[] = [
 //   {
@@ -60,45 +52,28 @@ import GlobalHeader, { UserProps } from '@/components/GlobalHeader.vue';
 //   }
 // ];
 
-const testUser: UserProps = {
+const testUser: UserProp = {
   isLogin: true,
   name: 'yearth'
 };
-
-interface FormProps {
-  value: string;
-  error: boolean;
-  message: string;
-}
-const emailReg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
 
 export default defineComponent({
   name: 'App',
   components: {
     // ColumnList,
-    GlobalHeader
+    GlobalHeader,
+    ValidateInput
   },
   setup() {
-    const emailRef: FormProps = reactive({
-      value: '',
-      error: false,
-      message: ''
-    });
-    const validateEmail = () => {
-      if (emailRef.value.trim() === '') {
-        emailRef.error = true;
-        emailRef.message = 'can not be empty';
-      } else if (!emailReg.test(emailRef.value)) {
-        emailRef.error = true;
-        emailRef.message = 'should be a valid email';
-      }
-    };
+    const testRules: RuleProps = [
+      { type: 'required', message: 'can not be empty' },
+      { type: 'email', message: 'should be a valid email' }
+    ];
 
     return {
-      emailRef,
       // list: testData,
-      validateEmail,
-      user: testUser
+      user: testUser,
+      rules: testRules
     };
   }
 });
