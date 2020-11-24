@@ -1,12 +1,12 @@
 <template>
   <div class="validate-input-container pb-3">
     <input
-      type="text"
       class="form-control"
       :class="{ 'is-invalid': inputRef.error }"
       :value="inputRef.value"
       @blur="validateInput"
       @input="updateValue"
+      v-bind="$attrs"
     />
     <span v-if="inputRef.error" class="invalid-feedback">
       {{ inputRef.message }}
@@ -23,13 +23,16 @@ interface InputProp {
   message: string;
 }
 interface RuleProp {
-  type: 'required' | 'email';
+  type: 'required' | 'email' | 'range';
   message: string;
+  min?: number;
+  max?: number;
 }
 export type RuleProps = RuleProp[];
 
 export default defineComponent({
   name: 'ValidateInput',
+  inheritAttrs: false,
   props: {
     rules: {
       type: Array as PropType<RuleProps>
@@ -63,6 +66,16 @@ export default defineComponent({
               break;
             case 'email':
               eachPassed = emailReg.test(inputRef.value);
+              break;
+            case 'range':
+              if (rule.min && rule.max) {
+                eachPassed =
+                  rule.min < inputRef.value.trim().length &&
+                  rule.max > inputRef.value.trim().length;
+              } else {
+                eachPassed = false;
+                inputRef.message = !rule.min ? 'no min' : 'no max';
+              }
               break;
             default:
               neverCase = rule.type;

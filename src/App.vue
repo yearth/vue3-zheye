@@ -5,14 +5,20 @@
     <form action="">
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
-        <validate-input :rules="rules" v-model="email" />
+        <validate-input
+          type="text"
+          placeholder="请输入邮箱地址"
+          :rules="rules"
+          v-model="email"
+        />
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">密码</label>
-        <input
+        <validate-input
           type="password"
-          class="form-control"
-          id="exampleInputPassword1"
+          placeholder="请输入密码"
+          :rules="passRules"
+          v-model="pass"
         />
       </div>
     </form>
@@ -69,12 +75,19 @@ export default defineComponent({
       { type: 'required', message: 'can not be empty' },
       { type: 'email', message: 'should be a valid email' }
     ];
+    const passRules: RuleProps = [
+      { type: 'required', message: 'can not be empty' },
+      { type: 'range', message: 'should be between 3 and 10', min: 3 }
+    ];
     const testEmail = '123@qq.com';
+    const testPass = '';
 
     return {
       // list: testData,
       email: testEmail,
+      pass: testPass,
       user: testUser,
+      passRules,
       rules: testRules
     };
   }
