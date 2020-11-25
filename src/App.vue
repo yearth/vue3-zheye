@@ -8,7 +8,7 @@
         <validate-input
           type="text"
           placeholder="请输入邮箱地址"
-          :rules="rules"
+          :rules="emailRules"
           v-model="email"
         />
       </div>
@@ -62,7 +62,7 @@ import { RuleProps } from '@/components/ValidateForm/ValidateInput.vue';
 //   }
 // ];
 
-const testUser: UserProp = {
+const user: UserProp = {
   isLogin: true,
   name: 'yearth'
 };
@@ -76,27 +76,27 @@ export default defineComponent({
     ValidateInput
   },
   setup() {
-    const testRules: RuleProps = [
+    const emailRules: RuleProps = [
       { type: 'required', message: 'can not be empty' },
       { type: 'email', message: 'should be a valid email' }
     ];
     const passRules: RuleProps = [
       { type: 'required', message: 'can not be empty' },
-      { type: 'range', message: 'should be between 3 and 10', min: 3 }
+      { type: 'range', message: 'should be between 3 and 10', min: 3, max: 10 }
     ];
-    const testEmail = '123@qq.com';
-    const testPass = '';
+    const email = 'email@gmail.com';
+    const pass = '';
     const handleSubmit = (result: boolean) => {
       console.log('handleSubmit', result);
     };
 
     return {
       // list: testData,
-      email: testEmail,
-      pass: testPass,
-      user: testUser,
+      user,
+      email,
+      pass,
       passRules,
-      rules: testRules,
+      emailRules,
       handleSubmit
     };
   }

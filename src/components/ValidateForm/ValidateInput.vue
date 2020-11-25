@@ -15,7 +15,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive } from 'vue';
+import { defineComponent, onMounted, PropType, reactive } from 'vue';
+import { emitter } from './ValidateForm.vue';
 const emailReg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
 interface InputProp {
   value: string;
@@ -51,7 +52,7 @@ export default defineComponent({
       inputRef.value = targetValue;
       context.emit('update:modelValue', targetValue);
     };
-    const validateInput = (): void => {
+    const validateInput = (): boolean => {
       const rules = props.rules;
       if (rules) {
         const allPassed = rules.every(rule => {
@@ -83,8 +84,13 @@ export default defineComponent({
           return eachPassed;
         });
         inputRef.error = !allPassed;
+        return allPassed;
       }
+      return true;
     };
+    onMounted(() => {
+      emitter.emit('form-item-created', validateInput);
+    });
     return {
       inputRef,
       updateValue,
