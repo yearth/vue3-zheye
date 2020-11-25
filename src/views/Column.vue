@@ -23,51 +23,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
-import { testData } from './Home.vue';
+import { testColunms, testPosts } from '@/global';
 import PostList from '@/components/PostList.vue';
-
-export interface PostProp {
-  id: number;
-  title: string;
-  content: string;
-  image?: string;
-  createAt: string;
-  colunmId: number;
-}
-
-const postData: PostProp[] = [
-  {
-    id: 1,
-    title: '第一篇文章',
-    content: '第一篇文章的内容',
-    image: 'https://images.dog.ceo/breeds/buhund-norwegian/hakon3.jpg',
-    createAt: '2020年11月25日15:44:00',
-    colunmId: 1
-  },
-  {
-    id: 2,
-    title: '第二篇文章',
-    content: '第二篇文章的内容',
-    image: 'https://images.dog.ceo/breeds/buhund-norwegian/hakon3.jpg',
-    createAt: '2020年11月25日15:44:00',
-    colunmId: 1
-  },
-  {
-    id: 3,
-    title: '第三篇文章',
-    content: '第三篇文章的内容',
-    image: 'https://images.dog.ceo/breeds/buhund-norwegian/hakon3.jpg',
-    createAt: '2020年11月25日15:44:00',
-    colunmId: 2
-  },
-  {
-    id: 4,
-    title: '第四篇文章',
-    content: '第四篇文章的内容',
-    createAt: '2020年11月25日15:44:00',
-    colunmId: 1
-  }
-];
 
 export default defineComponent({
   name: 'Column',
@@ -77,8 +34,8 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const id = +route.params.id;
-    const column = testData.find(c => c.id === id);
-    const postList = postData.filter(post => post.colunmId === id);
+    const column = testColunms.find(c => c.id === id);
+    const postList = testPosts.filter(post => post.colunmId === id);
 
     return {
       column,

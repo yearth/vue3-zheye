@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { PostProp } from '@/views/Column.vue';
+import { PostProp } from '@/global';
 export default defineComponent({
   name: 'PostList',
   props: {

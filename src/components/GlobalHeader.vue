@@ -3,10 +3,16 @@
     <a href="#" class="navbar-brand" @click.prevent="handleGoHome">者也专栏</a>
     <ul v-if="!user.isLogin" class="list-inline mb-0">
       <li class="list-inline-item">
-        <a href="#" class="btn btn-outline-light my-2">登录</a>
+        <a
+          href=""
+          class="btn btn-outline-light my-2"
+          @click.prevent="handleLogin"
+        >
+          登录
+        </a>
       </li>
       <li class="list-inline-item">
-        <a href="#" class="btn btn-outline-light my-2">注册</a>
+        <a href="" class="btn btn-outline-light my-2">注册</a>
       </li>
     </ul>
     <ul v-else class="list-inline mb-0">
@@ -28,15 +34,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { useStore } from 'vuex';
+import { UserProp } from '@/global';
 import { useRouter } from 'vue-router';
+import { defineComponent, PropType } from 'vue';
 import { Dropdown, DropdownItem } from './Dropdown';
 
-export interface UserProp {
-  isLogin: boolean;
-  id?: number;
-  name?: string;
-}
 export default defineComponent({
   name: 'GlobalHeader',
   props: {
@@ -51,15 +54,17 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
+    const store = useStore();
     const handleGoHome = () => {
       router.push('/');
     };
+    const handleLogin = () => {
+      store.commit('login');
+    };
     return {
+      handleLogin,
       handleGoHome
     };
   }
 });
 </script>
-
-<style lang="scss" scoped>
-</style>
