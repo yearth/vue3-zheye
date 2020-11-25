@@ -1,11 +1,47 @@
 <template>
-  <div class="home-container">this is home</div>
+  <column-list :list="list" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import ColumnList, { ColumnProps } from '@/components/ColumnList.vue';
+
+const testData: ColumnProps[] = [
+  {
+    id: 1,
+    title: 'test1 的专栏',
+    description: 'test1 的描述',
+    avatar: 'https://images.dog.ceo/breeds/buhund-norwegian/hakon3.jpg'
+  },
+  {
+    id: 2,
+    title: 'test2 的专栏',
+    description: 'test2 的描述',
+    avatar: 'https://images.dog.ceo/breeds/buhund-norwegian/hakon3.jpg'
+  },
+  {
+    id: 3,
+    title: 'test3 的专栏',
+    description: 'test3 的描述'
+  },
+  {
+    id: 4,
+    title: 'test4 的专栏',
+    description: 'test4 的描述',
+    avatar: 'https://images.dog.ceo/breeds/buhund-norwegian/hakon3.jpg'
+  }
+];
+
 export default defineComponent({
-  name: 'Home'
+  name: 'Home',
+  components: {
+    ColumnList
+  },
+  setup() {
+    return {
+      list: testData
+    };
+  }
 });
 </script>
 

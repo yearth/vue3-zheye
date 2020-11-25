@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-dark bg-primary justify-content-between mb-4 px-4">
-    <a href="#" class="navbar-brand">者也专栏</a>
+    <a href="#" class="navbar-brand" @click.prevent="handleGoHome">者也专栏</a>
     <ul v-if="!user.isLogin" class="list-inline mb-0">
       <li class="list-inline-item">
         <a href="#" class="btn btn-outline-light my-2">登录</a>
@@ -29,7 +29,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
+import { useRouter } from 'vue-router';
 import { Dropdown, DropdownItem } from './Dropdown';
+
 export interface UserProp {
   isLogin: boolean;
   id?: number;
@@ -46,6 +48,15 @@ export default defineComponent({
   components: {
     Dropdown,
     DropdownItem
+  },
+  setup() {
+    const router = useRouter();
+    const handleGoHome = () => {
+      router.push('/');
+    };
+    return {
+      handleGoHome
+    };
   }
 });
 </script>

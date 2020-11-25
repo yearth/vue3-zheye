@@ -16,7 +16,11 @@
           <p class="column-description card-text text-left">
             {{ column.description }}
           </p>
-          <a href="#" class="colum-link btn btn-outline-primary">进入专栏</a>
+          <router-link
+            :to="`/column/${column.id}`"
+            class="colum-link btn btn-outline-primary"
+            >进入专栏</router-link
+          >
         </div>
       </section>
     </li>
