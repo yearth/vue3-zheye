@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
-export interface ColumnProps {
+export interface ColumnProp {
   id: number;
   title: string;
   avatar?: string;
@@ -39,7 +39,7 @@ export default defineComponent({
   name: 'ColumnList',
   props: {
     list: {
-      type: Array as PropType<ColumnProps[]>,
+      type: Array as PropType<ColumnProp[]>,
       required: true
     }
   },
