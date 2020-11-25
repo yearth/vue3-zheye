@@ -15,7 +15,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, reactive } from 'vue';
+import {
+  defineComponent,
+  onMounted,
+  onUnmounted,
+  PropType,
+  reactive
+} from 'vue';
 import { emitter } from './ValidateForm.vue';
 const emailReg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
 interface InputProp {
@@ -88,9 +94,19 @@ export default defineComponent({
       }
       return true;
     };
+    const callback = () => {
+      inputRef.value = '';
+      context.emit('update:modelValue', '');
+      validateInput();
+    };
     onMounted(() => {
       emitter.emit('form-item-created', validateInput);
+      emitter.on('clear-input', callback);
     });
+    onUnmounted(() => {
+      emitter.off('clear-input', callback);
+    });
+
     return {
       inputRef,
       updateValue,

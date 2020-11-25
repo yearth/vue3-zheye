@@ -10,12 +10,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted } from 'vue';
+import { defineComponent, onBeforeMount, onUnmounted } from 'vue';
 import mitt from 'mitt';
 
 type ValidateFunc = () => boolean;
 
 export const emitter = mitt();
+
 export default defineComponent({
   name: 'ValidateForm',
   emits: ['form-submit'],
@@ -32,7 +33,7 @@ export default defineComponent({
       func && ValidateFuncArr.push(func);
     };
 
-    onMounted(() => {
+    onBeforeMount(() => {
       emitter.on('form-item-created', callback);
     });
 

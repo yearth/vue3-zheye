@@ -30,11 +30,12 @@
 
 <script lang="ts">
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 // import ColumnList, { ColumnProps } from '@/components/ColumnList.vue';
 import GlobalHeader, { UserProp } from '@/components/GlobalHeader.vue';
 import { ValidateForm, ValidateInput } from '@/components/ValidateForm';
 import { RuleProps } from '@/components/ValidateForm/ValidateInput.vue';
+import { emitter } from '@/components/ValidateForm/ValidateForm.vue';
 
 // const testData: ColumnProps[] = [
 //   {
@@ -84,10 +85,13 @@ export default defineComponent({
       { type: 'required', message: 'can not be empty' },
       { type: 'range', message: 'should be between 3 and 10', min: 3, max: 10 }
     ];
-    const email = 'email@gmail.com';
+
+    const email = ref('email@gmail.com');
     const pass = '';
     const handleSubmit = (result: boolean) => {
-      console.log('handleSubmit', result);
+      if (!result) {
+        emitter.emit('clear-input');
+      }
     };
 
     return {
