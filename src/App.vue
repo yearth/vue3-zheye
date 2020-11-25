@@ -25,6 +25,7 @@
         <button type="submit" class="btn btn-primary">自定义的提交</button>
       </template>
     </validate-form>
+    <router-view />
   </div>
 </template>
 
