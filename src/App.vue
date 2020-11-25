@@ -7,8 +7,8 @@
 
 <script lang="ts">
 import { useStore } from 'vuex';
-import { UserProp } from '@/global';
-import { computed, defineComponent, Ref } from 'vue';
+import { computed, defineComponent } from 'vue';
+import { GlobalProps } from '@/store';
 import GlobalHeader from '@/components/GlobalHeader.vue';
 
 export default defineComponent({
@@ -17,8 +17,8 @@ export default defineComponent({
     GlobalHeader
   },
   setup() {
-    const store = useStore();
-    const user: Ref<UserProp> = computed(() => store.state.user);
+    const store = useStore<GlobalProps>();
+    const user = computed(() => store.state.user);
     return {
       user
     };

@@ -21,9 +21,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
-import { testColunms, testPosts } from '@/global';
+import { GlobalProps } from '@/store';
+import { computed, defineComponent } from 'vue';
 import PostList from '@/components/PostList.vue';
 
 export default defineComponent({
@@ -33,9 +34,12 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
+    const store = useStore<GlobalProps>();
+
     const id = +route.params.id;
-    const column = testColunms.find(c => c.id === id);
-    const postList = testPosts.filter(post => post.colunmId === id);
+
+    const column = computed(() => store.getters.getColumnById(id));
+    const postList = computed(() => store.getters.getPostsByCid(id));
 
     return {
       column,

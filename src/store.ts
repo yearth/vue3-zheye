@@ -8,7 +8,7 @@ import {
   testColunms
 } from '@/global';
 
-interface GlobalProps {
+export interface GlobalProps {
   user: UserProp;
   posts: PostProp[];
   colunms: ColumnProp[];
@@ -27,6 +27,14 @@ const store = createStore<GlobalProps>({
         isLogin: true,
         name: 'yearth'
       };
+    }
+  },
+  getters: {
+    getColumnById: state => (id: number) => {
+      return state.colunms.find(c => c.id === id);
+    },
+    getPostsByCid: state => (cid: number) => {
+      return state.posts.filter(post => post.colunmId === cid);
     }
   }
 });
