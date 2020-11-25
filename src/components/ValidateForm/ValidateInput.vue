@@ -100,8 +100,8 @@ export default defineComponent({
       validateInput();
     };
     onMounted(() => {
-      emitter.emit('form-item-created', validateInput);
       emitter.on('clear-input', callback);
+      emitter.emit('form-item-created', validateInput);
     });
     onUnmounted(() => {
       emitter.off('clear-input', callback);
