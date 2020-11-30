@@ -7,8 +7,8 @@
 
 <script lang="ts">
 import { useStore } from 'vuex';
-import { computed, defineComponent } from 'vue';
 import { GlobalProps } from '@/store';
+import { computed, defineComponent } from 'vue';
 import GlobalHeader from '@/components/GlobalHeader.vue';
 
 export default defineComponent({

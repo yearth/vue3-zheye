@@ -37,7 +37,6 @@ export default defineComponent({
     const store = useStore<GlobalProps>();
 
     const id = +route.params.id;
-
     const column = computed(() => store.getters.getColumnById(id));
     const postList = computed(() => store.getters.getPostsByCid(id));
 
